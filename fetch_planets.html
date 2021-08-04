@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Fetch Planets</title>
+      <script>
+         window.addEventListener("load", function(){
+            // TODO: fetch planets JSON
+            let i = 0;
+
+            fetch("https://handlers.education.launchcode.org/static/planets.json").then( function(response) {
+                response.json().then( function(json) {
+                    const destination = document.getElementById("destination");
+                    destination.addEventListener("click", function (){
+                        let planet = json[i];    
+                        destination.innerHTML = `
+                            <div>
+                                <h3>Planet ${planet.name}</h3>
+                                ${planet.name} is ${planet.diameter} in diameter and rotates around the star ${planet.star}. It's about ${planet.distance}.<br><br>
+                                <img src=${planet.image} height=250></img>
+                            </div>
+                        `;
+                        i = (i + 1) % json.length;
+                    });
+                });
+            });
+         });
+      </script>
+   </head>
+   <body>
+      <h1>Destination</h1>
+      <div id="destination">
+         <h3>Planet</h3>
+      </div>
+   </body>
+</html>
